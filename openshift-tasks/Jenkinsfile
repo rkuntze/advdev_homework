@@ -1,3 +1,4 @@
+def GUID = "c740"
 #!groovy
 podTemplate(
   label: "skopeo-pod",
