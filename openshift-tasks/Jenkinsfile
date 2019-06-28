@@ -38,19 +38,16 @@ podTemplate(
       def version = getVersionFromPom("pom.xml")
 
       // TBD Set the tag for the development image: version + build number
-      def devTag  = "${version}-" + currentBuild.number
+      def devTag  = ""
       // Set the tag for the production image: version
-      def prodTag = ${version}
+      def prodTag = ""
 
       // Using Maven build the war file
       // Do not run tests in this step
       stage('Build war') {
+        echo "Building version ${devTag}"
 
-          echo "Building version ${devTag}"
-  
-          // RIX: example solution:
-          // ??? sh "${mvnCmd} clean package -DskipTests=true"
-  
+        // TBD: Execute Maven Build
       }
 
       // TBD: The next two stages should run in parallel
