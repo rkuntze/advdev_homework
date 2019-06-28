@@ -3,8 +3,6 @@
 // RIX, my GUID
 def GUID = "c740"
 
-jkfhkjgsgk
-
 podTemplate(
   label: "skopeo-pod",
   cloud: "openshift",
