@@ -22,7 +22,7 @@ export CLUSTER=https://master.na311.openshift.opentlc.com
 echo "Setting up Jenkins in project ${GUID}-jenkins from Git Repo ${REPO} for Cluster ${CLUSTER}"
 
 # LOGIN:
-oc login -u $(UN) -p $(PW) $(CLUSTER)
+oc login -u ${UN} -p ${PW} ${CLUSTER}
 
 
 # Set up Jenkins with sufficient resources
