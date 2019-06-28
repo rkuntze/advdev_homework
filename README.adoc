@@ -1,5 +1,7 @@
 = OpenShift Advanced Development Homework Template
 
+This is Richards Copy
+
 [NOTE]
 If you are looking for the 40h homework (Parksmap etc.) please checkout branch `40h`.
 
