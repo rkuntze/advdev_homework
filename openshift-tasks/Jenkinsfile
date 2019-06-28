@@ -1,4 +1,3 @@
-def GUID = "c740"
 #!groovy
 podTemplate(
   label: "skopeo-pod",
@@ -19,6 +18,10 @@ podTemplate(
     // Define Maven Command to point to the correct
     // settings for our Nexus installation
     def mvnCmd = "mvn -s ../nexus_settings.xml"
+
+    // my GUID
+    def GUID = "c740"
+
 
     // Checkout Source Code.
     stage('Checkout Source') {
