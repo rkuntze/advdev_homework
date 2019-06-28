@@ -52,7 +52,7 @@ podTemplate(
           echo "Building version ${devTag}"
   
           // RIX: example solution:
-          sh "${mvnCmd} clean package -DskipTests=true"
+          // ??? sh "${mvnCmd} clean package -DskipTests=true"
   
         }
       }
