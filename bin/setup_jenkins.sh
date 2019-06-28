@@ -26,13 +26,43 @@ oc login -u ${UN} -p ${PW} ${CLUSTER}
 
 
 # Set up Jenkins with sufficient resources
-# TBD
+# TBD-RIX
+oc new-project ${GUID}-jenkins --display-name "${GUID} Shared Jenkins"
+# Main App Jenkins Master from openshift internal template jenkins-persistent
+# causes errors: oc new-app jenkins-persistent --param ENABLE_OAUTH=true --param MEMORY_LIMIT=2Gi --param VOLUME_CAPACITY=4Gi --param DISABLE_ADMINISTRATIVE_MONITORS=true
+## -- in case of pvc errors:
+oc new-app jenkins-ephemeral --param ENABLE_OAUTH=true --param MEMORY_LIMIT=2Gi --param DISABLE_ADMINISTRATIVE_MONITORS=true
+
 
 # Create custom agent container image with skopeo
-# TBD
+# TBD-RIX
+# Jenkins Slave Image:
+oc new-build  -D $'FROM docker.io/openshift/jenkins-agent-maven-35-centos7:v3.11\n
+      USER root\nRUN yum -y install skopeo && yum clean all\n
+      USER 1001' --name=jenkins-agent-appdev -n ${GUID}-jenkins
+
 
 # Create pipeline build config pointing to the ${REPO} with contextDir `openshift-tasks`
-# TBD
+# TBD-RIX:
+# Jenkins Pipeline:
+echo "apiVersion: v1
+items:
+- kind: "BuildConfig"
+  apiVersion: "v1"
+  metadata:
+    name: "tasks-pipeline"
+  spec:
+    source:
+      type: "Git"
+      git:
+        uri: "https://github.com/rkuntze/advdev_homework.git"
+    strategy:
+      type: "JenkinsPipeline"
+      jenkinsPipelineStrategy:
+        jenkinsfilePath: openshift-tasks/Jenkinsfile
+kind: List
+metadata: []" | oc create -f - -n ${GUID}-jenkins
+
 
 # Make sure that Jenkins is fully up and running before proceeding!
 while : ; do
