@@ -57,11 +57,11 @@ podTemplate(
 
       // TBD: The next two stages should run in parallel
       
-      stage("Testing") {
+      // stage("Testing") {
 
-        failFast true
+        // failFast true
         
-        parallel {
+        // parallel {
     
           // Using Maven run the unit tests
           stage('Unit Tests') {
@@ -76,8 +76,8 @@ podTemplate(
        
             // TBD: Execute Sonarqube Tests
           }
-        }
-      }
+        // }
+      // }
 
       // Publish the built war file to Nexus
       stage('Publish to Nexus') {
