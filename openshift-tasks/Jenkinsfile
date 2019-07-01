@@ -174,9 +174,9 @@ podTemplate(
 
           // RIX: Copy image to Nexus container registry
           // (Version for OpenShift 3)
-          sh "skopeo copy --src-tls-verify=false --dest-tls-verify=false --src-creds openshift:\$(oc whoami -t) --dest-creds admin:redhat docker://docker-registry.default.svc.cluster.local:5000/${devProject}/tasks:${devTag} docker://nexus3.gpte-hw-cicd.svc.cluster.local:8081/tasks:${devTag}"
+          sh "skopeo copy --src-tls-verify=false --dest-tls-verify=false --src-creds openshift:\$(oc whoami -t) --dest-creds admin:redhat docker://docker-registry.default.svc.cluster.local:5000/${devProject}/tasks:${devTag} docker://nexus-registry.gpte-hw-cicd.svc.cluster.local:5000/tasks:${devTag}"
 
-          // http://nexus3.gpte-hw-cicd.svc.cluster.local:8081/repository/releases
+          // https://nexus-registry.gpte-hw-cicd.svc.cluster.local:5000.
      
           // RIX: Tag the built image with the production tag.
           // Tag the built image with the production tag.
