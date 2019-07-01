@@ -2,6 +2,8 @@
 
 // RIX, my GUID
 def GUID = "c740"
+def JOB_BASE_NAME = "RixTest"
+
 
 podTemplate(
   label: "skopeo-pod",
@@ -81,6 +83,10 @@ podTemplate(
             echo "Running Code Analysis"
        
             // TBD: Execute Sonarqube Tests
+            // internal:            sonarqube.gpte-hw-cicd.svc.cluster.local:9000
+            // public route: http://sonarqube-gpte-hw-cicd.apps.na311.openshift.opentlc.com
+             sh "${mvnCmd} sonar:sonar -Dsonar.host.url=http://sonarqube-gpte-hw-cicd.apps.na311.openshift.opentlc.com/ -Dsonar.projectName=${JOB_BASE_NAME} -Dsonar.projectVersion=${devTag}"
+    
           }
         // }
       // }
