@@ -38,8 +38,10 @@ podTemplate(
     // Checkout Source Code.
     stage('Checkout Source') {
     
+      echo "==========================="
       echo "Checking out from repo"
-      
+      echo "==========================="
+     
       checkout scm
     }
 
@@ -59,7 +61,9 @@ podTemplate(
       // Using Maven build the war file
       // Do not run tests in this step
       stage('Build war') {
+        echo "==========================="
         echo "Building version ${devTag}"
+        echo "==========================="
 
         // RIX: maven build:
         sh "${mvnCmd} clean package -DskipTests=true"
@@ -76,7 +80,9 @@ podTemplate(
     
           // Using Maven run the unit tests
           "Unit Tests" : {
+            echo "==========================="
             echo "Running Unit Tests"
+            echo "==========================="
        
             // RIX: Execute Unit Tests
             sh "${mvnCmd} test"
@@ -89,8 +95,10 @@ podTemplate(
        
           // Using Maven to call SonarQube for Code Analysis
           "Code Analysis" : {
+            echo "==========================="
             echo "Running Code Analysis"
-       
+            echo "==========================="
+
             // RIX: Execute Sonarqube Tests
             // internal:            sonarqube.gpte-hw-cicd.svc.cluster.local:9000
             // public route: http://sonarqube-gpte-hw-cicd.apps.na311.openshift.opentlc.com
@@ -102,7 +110,9 @@ podTemplate(
 
       // Publish the built war file to Nexus
       stage('Publish to Nexus') {
+        echo "==========================="
         echo "Publish to Nexus"
+        echo "==========================="
 
         // RIX: Publish to Nexus
         // internal: nexus3.gpte-hw-cicd.svc.cluster.local:8081/repository/all-maven-public
@@ -114,7 +124,9 @@ podTemplate(
 
       // Build the OpenShift Image in OpenShift and tag it.
       stage('Build and Tag OpenShift Image') {
+        echo "==========================="
         echo "Building OpenShift container image tasks:${devTag}"
+        echo "==========================="
 
         // RIX: Build Image, tag Image
         script {
@@ -132,7 +144,9 @@ podTemplate(
 
       // Deploy the built image to the Development Environment.
       stage('Deploy to Dev') {
+        echo "==========================="
         echo "Deploying container image to Development Project"
+        echo "==========================="
 
         // RIX: Deploy to development Project
         //      Set Image, Set VERSION
@@ -166,15 +180,13 @@ podTemplate(
         }
 
         
-        
-        
-        
-        
       }
 
       // Copy Image to Nexus container registry
       stage('Copy Image to Nexus container registry') {
+        echo "==========================="
         echo "Copy image to Nexus container registry"
+        echo "==========================="
 
         script {
 
@@ -193,10 +205,6 @@ podTemplate(
           }
           
         }
-
-
-
-
 
       }
 
@@ -218,9 +226,11 @@ podTemplate(
               if (activeApp == "tasks-green") {
                 destApp = "tasks-blue"
               }
+              echo "==========================="
               echo "Active Application:      " + activeApp
               echo "Destination Application: " + destApp
-        
+              echo "==========================="
+       
               // Update the Image on the Production Deployment Config
               def dc = openshift.selector("dc/${destApp}").object()
         
@@ -258,7 +268,9 @@ podTemplate(
       }
 
       stage('Switch over to new Version') {
+        echo "==========================="
         echo "Switching Production application to ${destApp}."
+        echo "==========================="
         // RIX: Execute switch
         script {
           openshift.withCluster() {
