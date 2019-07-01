@@ -1,5 +1,7 @@
 #!groovy
 
+// RIX, my GUID
+def GUID = "c740"
 
 podTemplate(
   label: "skopeo-pod",
@@ -27,8 +29,6 @@ podTemplate(
     // settings for our Nexus installation
     def mvnCmd = "mvn -s ../nexus_settings.xml"
 
-    // RIX, my GUID
-    def GUID = "c740"
     def JOB_BASE_NAME = "RixTest"
     // Set Development and Production Project Names
     def devProject  = "${GUID}-tasks-dev"
