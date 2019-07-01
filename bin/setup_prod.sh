@@ -22,7 +22,7 @@ oc set volume dc/tasks-blue --add --name=jboss-config --mount-path=/opt/eap/stan
 oc set volume dc/tasks-blue --add --name=jboss-config1 --mount-path=/opt/eap/standalone/configuration/application-roles.properties --sub-path=application-roles.properties --configmap-name=tasks-blue-config -n ${GUID}-tasks-prod
 oc set probe dc/tasks-blue --readiness --get-url=http://:8080/ --initial-delay-seconds=30 --timeout-seconds=10 -n ${GUID}-tasks-prod
 oc set probe dc/tasks-blue --liveness --get-url=http://:8080/ --initial-delay-seconds=30 --timeout-seconds=10 -n ${GUID}-tasks-prod
-# Setting 'wrong' VERSION. This will need to be updated in the pipeline
+# Setting 'wrong' VERSION. This will need to be updated in the pipeline - what the hack?
 oc set env dc/tasks-blue VERSION='1.0 (tasks-blue)' -n ${GUID}-tasks-prod
 
 
@@ -35,7 +35,7 @@ oc set volume dc/tasks-green --add --name=jboss-config --mount-path=/opt/eap/sta
 oc set volume dc/tasks-green --add --name=jboss-config1 --mount-path=/opt/eap/standalone/configuration/application-roles.properties --sub-path=application-roles.properties --configmap-name=tasks-green-config -n ${GUID}-tasks-prod
 oc set probe dc/tasks-green --readiness --get-url=http://:8080/ --initial-delay-seconds=30 --timeout-seconds=10 -n ${GUID}-tasks-prod
 oc set probe dc/tasks-green --liveness --get-url=http://:8080/ --initial-delay-seconds=30 --timeout-seconds=10 -n ${GUID}-tasks-prod
-# Setting 'wrong' VERSION. This will need to be updated in the pipeline
+# Setting 'wrong' VERSION. This will need to be updated in the pipeline - cheated here, best regards, Rix
 oc set env dc/tasks-green VERSION='1.0 (tasks-green)' -n ${GUID}-tasks-prod
 
 # Expose Blue service as route to make green application active

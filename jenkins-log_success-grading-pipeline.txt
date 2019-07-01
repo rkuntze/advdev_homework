@@ -1,0 +1,226 @@
+Hey Yeah ??? !!!!!! ===========
+
+
+Started by user richard.kuntze-devoteam.com
+Obtained Jenkinsfile from git https://github.com/redhat-gpte-devopsautomation/advdev_homework_grading
+Running in Durability level: MAX_SURVIVABILITY
+[Pipeline] podTemplate
+[Pipeline] {
+[Pipeline] node
+Still waiting to schedule task
+Jenkins doesn’t have label homework
+Agent homework-r18st-7wcsp is provisioned from template Kubernetes Pod Template
+Agent specification [Kubernetes Pod Template] (homework): 
+* [jnlp] docker-registry.default.svc:5000/gpte-jenkins/jenkins-agent-appdev:latest(resourceRequestCpu: 1, resourceRequestMemory: 1Gi, resourceLimitCpu: 2, resourceLimitMemory: 2Gi)
+
+Running on homework-r18st-7wcsp in /home/jenkins/workspace/Advanced Development Homework Grading
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Cloning the remote Git repository
+Cloning repository https://github.com/redhat-gpte-devopsautomation/advdev_homework_grading
+ > git init /home/jenkins/workspace/Advanced Development Homework Grading # timeout=10
+Fetching upstream changes from https://github.com/redhat-gpte-devopsautomation/advdev_homework_grading
+ > git --version # timeout=10
+ > git fetch --tags --progress https://github.com/redhat-gpte-devopsautomation/advdev_homework_grading +refs/heads/*:refs/remotes/origin/*
+ > git config remote.origin.url https://github.com/redhat-gpte-devopsautomation/advdev_homework_grading # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/redhat-gpte-devopsautomation/advdev_homework_grading # timeout=10
+Fetching upstream changes from https://github.com/redhat-gpte-devopsautomation/advdev_homework_grading
+ > git fetch --tags --progress https://github.com/redhat-gpte-devopsautomation/advdev_homework_grading +refs/heads/*:refs/remotes/origin/*
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+ > git rev-parse refs/remotes/origin/origin/master^{commit} # timeout=10
+Checking out Revision 84440594ff9713a444bb2dd08b4d854e6be39080 (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 84440594ff9713a444bb2dd08b4d854e6be39080
+Commit message: "Added DISABLE_ADMINISTRATIVE_MONITORS flag to Jenkins"
+ > git rev-list --no-walk 84440594ff9713a444bb2dd08b4d854e6be39080 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] container
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Get Student Homework Repo)
+[Pipeline] echo
+*******************************************************
+*** Advanced OpenShift Development Homework Grading ***
+*** GUID:         c740
+*** USER:         richard.kuntze-devoteam.com
+*** Student Repo: *********
+*** CLUSTER:      na311.openshift.opentlc.com
+*** SETUP:        false
+*** DELETE:       false
+*******************************************************
+[Pipeline] echo
+Cloning Student Project Repository
+[Pipeline] git
+ > git rev-parse --is-inside-work-tree # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/rkuntze/advdev_homework.git # timeout=10
+Fetching upstream changes from https://github.com/rkuntze/advdev_homework.git
+ > git --version # timeout=10
+ > git fetch --tags --progress https://github.com/rkuntze/advdev_homework.git +refs/heads/*:refs/remotes/origin/*
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+ > git rev-parse refs/remotes/origin/origin/master^{commit} # timeout=10
+Checking out Revision 1fb1f3586635221e527bb2f20e1fa0f22eb1a90a (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 1fb1f3586635221e527bb2f20e1fa0f22eb1a90a
+ > git branch -a -v --no-abbrev # timeout=10
+ > git checkout -b master 1fb1f3586635221e527bb2f20e1fa0f22eb1a90a
+Commit message: "Why does it work in mine but not in grading Jenkins, V3"
+ > git rev-list --no-walk a42d6f290fab9bd8cc01982c2422e31eebea95ed # timeout=10
+First time build. Skipping changelog.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Create Projects)
+Stage "Create Projects" skipped due to when conditional
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Setup Infrastructure)
+Stage "Setup Infrastructure" skipped due to when conditional
+[Pipeline] parallel
+[Pipeline] [Setup Jenkins] { (Branch: Setup Jenkins)
+[Pipeline] [Setup Development Project] { (Branch: Setup Development Project)
+[Pipeline] [Setup Production Project] { (Branch: Setup Production Project)
+[Pipeline] [Setup Jenkins] stage
+[Pipeline] [Setup Jenkins] { (Setup Jenkins)
+[Pipeline] [Setup Development Project] stage
+[Pipeline] [Setup Development Project] { (Setup Development Project)
+[Pipeline] [Setup Production Project] stage
+[Pipeline] [Setup Production Project] { (Setup Production Project)
+Stage "Setup Jenkins" skipped due to when conditional
+Stage "Setup Development Project" skipped due to when conditional
+Stage "Setup Production Project" skipped due to when conditional
+[Pipeline] [Setup Jenkins] }
+[Pipeline] [Setup Development Project] }
+[Pipeline] [Setup Production Project] }
+[Pipeline] [Setup Jenkins] // stage
+[Pipeline] [Setup Development Project] // stage
+[Pipeline] [Setup Production Project] // stage
+[Pipeline] [Setup Jenkins] }
+[Pipeline] [Setup Development Project] }
+[Pipeline] [Setup Production Project] }
+[Pipeline] // parallel
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Reset Projects)
+[Pipeline] sh
+[Advanced Development Homework Grading] Running shell script
++ ./bin/reset_prod.sh c740
+Resetting Tasks Production Environment in project c740-tasks-prod to Green Services
+route.route.openshift.io "tasks" patched
+Updated
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (First Pipeline Run (from Green to Blue))
+[Pipeline] echo
+Executing Initial Tasks Pipeline - BLUE deployment
+[Pipeline] script
+[Pipeline] {
+[Pipeline] echo
+
+[Pipeline] _OcContextInit
+[Pipeline] _OcContextInit
+[Pipeline] readFile
+[Pipeline] _OcAction
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test Tasks in Dev)
+[Pipeline] echo
+Testing Tasks Dev Application
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
+[Advanced Development Homework Grading] Running shell script
++ curl tasks-c740-tasks-dev.apps.na311.openshift.opentlc.com
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:--  0:00:04 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:05 --:--:--     0
+100 11269  100 11269    0     0   2039      0  0:00:05  0:00:05 --:--:--  2806
+[Pipeline] echo
+*** tasks-dev validated successfully.
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test Blue Services in Prod)
+[Pipeline] echo
+Testing Prod Services (BLUE)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
+[Advanced Development Homework Grading] Running shell script
++ curl tasks-c740-tasks-prod.apps.na311.openshift.opentlc.com
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100 11275  100 11275    0     0   269k      0 --:--:-- --:--:-- --:--:--  275k
+[Pipeline] echo
+*** tasks-blue validated successfully.
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Second Pipeline Run (from Blue to Green))
+[Pipeline] echo
+Executing Second Tasks Pipeline - GREEN deployment
+[Pipeline] script
+[Pipeline] {
+[Pipeline] _OcContextInit
+[Pipeline] _OcContextInit
+[Pipeline] readFile
+[Pipeline] _OcAction
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test Green Parksmap in Prod)
+[Pipeline] echo
+Testing Prod Parksmap Application (GREEN)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
+[Advanced Development Homework Grading] Running shell script
++ curl tasks-c740-tasks-prod.apps.na311.openshift.opentlc.com
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:--  0:00:04 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:05 --:--:--     0
+100 11277  100 11277    0     0   2039      0  0:00:05  0:00:05 --:--:--  2808
+[Pipeline] echo
+*** tasks-green validated successfully.
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Cleanup)
+Stage "Cleanup" skipped due to when conditional
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // container
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] }
+[Pipeline] // podTemplate
+[Pipeline] End of Pipeline
+Finished: SUCCESS
+

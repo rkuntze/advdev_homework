@@ -1,6 +1,6 @@
 #!groovy
 
-// RIX, my GUID
+// RIX, my GUID (required here)
 def GUID = "c740"
 
 podTemplate(
