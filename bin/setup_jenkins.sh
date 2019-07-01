@@ -11,10 +11,10 @@ GUID=$1
 REPO=$2
 CLUSTER=$3
 
-// export GUID="c740"
-// export REPO="https://github.com/rkuntze/advdev_homework.git"
-// export CLUSTER="https://master.na311.openshift.opentlc.com"
-// User: 
+# export GUID="c740"
+# export REPO="https://github.com/rkuntze/advdev_homework.git"
+# export CLUSTER="https://master.na311.openshift.opentlc.com"
+# User: richard.kuntze-devoteam.com
 
 
 echo "Setting up Jenkins in project ${GUID}-jenkins from Git Repo ${REPO} for Cluster ${CLUSTER}"
@@ -23,7 +23,7 @@ echo "Setting up Jenkins in project ${GUID}-jenkins from Git Repo ${REPO} for Cl
 
 # Set up Jenkins with sufficient resources
 # TBD-RIX
-oc new-project ${GUID}-jenkins --display-name "${GUID} Shared Jenkins"
+# already done outside: oc new-project ${GUID}-jenkins --display-name "${GUID} Shared Jenkins"
 # Main App Jenkins Master from openshift internal template jenkins-persistent
 # causes errors: oc new-app jenkins-persistent --param ENABLE_OAUTH=true --param MEMORY_LIMIT=2Gi --param VOLUME_CAPACITY=4Gi --param DISABLE_ADMINISTRATIVE_MONITORS=true
 ## -- in case of pvc errors:
