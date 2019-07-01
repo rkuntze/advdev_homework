@@ -69,7 +69,7 @@ podTemplate(
         parallel (
     
           // Using Maven run the unit tests
-          stage('Unit Tests') {
+          "Unit Tests" : {
             echo "Running Unit Tests"
        
             // RIX: Execute Unit Tests
@@ -82,7 +82,7 @@ podTemplate(
           },
        
           // Using Maven to call SonarQube for Code Analysis
-          stage('Code Analysis') {
+          "Code Analysis" : {
             echo "Running Code Analysis"
        
             // RIX: Execute Sonarqube Tests
