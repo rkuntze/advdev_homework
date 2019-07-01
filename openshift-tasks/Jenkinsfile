@@ -3,6 +3,9 @@
 // RIX, my GUID
 def GUID = "c740"
 def JOB_BASE_NAME = "RixTest"
+// Set Development and Production Project Names
+def devProject  = "${GUID}-tasks-dev"
+def prodProject = "${GUID}-tasks-prod"
 
 
 podTemplate(
