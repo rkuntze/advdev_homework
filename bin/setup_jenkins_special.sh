@@ -1,33 +1,37 @@
 #!/bin/bash
 # Setup Jenkins Project
-if [ "$#" -ne 3 ]; then
-    echo "Usage:"
-    echo "  $0 GUID REPO CLUSTER"
-    echo "  Example: $0 wkha https://github.com/redhat-gpte-devopsautomation/advdev_homework_template.git na311.openshift.opentlc.com"
-    exit 1
-fi
+# ### if [ "$#" -ne 3 ]; then
+# ###     echo "Usage:"
+# ###     echo "  $0 GUID REPO CLUSTER"
+# ###     echo "  Example: $0 wkha https://github.com/redhat-gpte-devopsautomation/advdev_homework_template.git na311.openshift.opentlc.com"
+# ###     exit 1
+# ### fi
+# ### 
+# ### GUID=$1
+# ### REPO=$2
+# ### CLUSTER=$3
 
-GUID=$1
-REPO=$2
-CLUSTER=$3
-
-# export GUID="c740"
-# export REPO="https://github.com/rkuntze/advdev_homework.git"
-# export CLUSTER="https://master.na311.openshift.opentlc.com"
-# User: richard.kuntze-devoteam.com
+# Added by RIX
+UN=$1
+PW=$2
+export GUID="c740"
+export REPO="https://github.com/rkuntze/advdev_homework.git"
+export CLUSTER="https://master.na311.openshift.opentlc.com"
 
 
 echo "Setting up Jenkins in project ${GUID}-jenkins from Git Repo ${REPO} for Cluster ${CLUSTER}"
 
-# LOGIN is dopne outside this script
+# LOGIN:
+oc login -u ${UN} -p ${PW} ${CLUSTER}
+
 
 # Set up Jenkins with sufficient resources
 # TBD-RIX
-# already done outside: oc new-project ${GUID}-jenkins --display-name "${GUID} Shared Jenkins"
+oc new-project ${GUID}-jenkins --display-name "${GUID} Shared Jenkins"
 # Main App Jenkins Master from openshift internal template jenkins-persistent
-# causes errors: oc new-app jenkins-persistent --param ENABLE_OAUTH=true --param MEMORY_LIMIT=2Gi --param VOLUME_CAPACITY=4Gi --param DISABLE_ADMINISTRATIVE_MONITORS=true -n ${GUID}-jenkins
+# causes errors: oc new-app jenkins-persistent --param ENABLE_OAUTH=true --param MEMORY_LIMIT=2Gi --param VOLUME_CAPACITY=4Gi --param DISABLE_ADMINISTRATIVE_MONITORS=true
 ## -- in case of pvc errors:
-oc new-app jenkins-ephemeral --param ENABLE_OAUTH=true --param MEMORY_LIMIT=2Gi --param DISABLE_ADMINISTRATIVE_MONITORS=true -n ${GUID}-jenkins
+oc new-app jenkins-ephemeral --param ENABLE_OAUTH=true --param MEMORY_LIMIT=2Gi --param DISABLE_ADMINISTRATIVE_MONITORS=true
 
 
 # Create custom agent container image with skopeo

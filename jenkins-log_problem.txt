@@ -1,0 +1,364 @@
+Started by user richard.kuntze-devoteam.com
+Obtained Jenkinsfile from git https://github.com/redhat-gpte-devopsautomation/advdev_homework_grading
+Running in Durability level: MAX_SURVIVABILITY
+[Pipeline] podTemplate
+[Pipeline] {
+[Pipeline] node
+Still waiting to schedule task
+homework-r18st-4f9n6 is offline
+Agent homework-r18st-4f9n6 is provisioned from template Kubernetes Pod Template
+Agent specification [Kubernetes Pod Template] (homework): 
+* [jnlp] docker-registry.default.svc:5000/gpte-jenkins/jenkins-agent-appdev:latest(resourceRequestCpu: 1, resourceRequestMemory: 1Gi, resourceLimitCpu: 2, resourceLimitMemory: 2Gi)
+
+Running on homework-r18st-4f9n6 in /home/jenkins/workspace/Advanced Development Homework Grading
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Cloning the remote Git repository
+Cloning repository https://github.com/redhat-gpte-devopsautomation/advdev_homework_grading
+ > git init /home/jenkins/workspace/Advanced Development Homework Grading # timeout=10
+Fetching upstream changes from https://github.com/redhat-gpte-devopsautomation/advdev_homework_grading
+ > git --version # timeout=10
+ > git fetch --tags --progress https://github.com/redhat-gpte-devopsautomation/advdev_homework_grading +refs/heads/*:refs/remotes/origin/*
+ > git config remote.origin.url https://github.com/redhat-gpte-devopsautomation/advdev_homework_grading # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/redhat-gpte-devopsautomation/advdev_homework_grading # timeout=10
+Fetching upstream changes from https://github.com/redhat-gpte-devopsautomation/advdev_homework_grading
+ > git fetch --tags --progress https://github.com/redhat-gpte-devopsautomation/advdev_homework_grading +refs/heads/*:refs/remotes/origin/*
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+ > git rev-parse refs/remotes/origin/origin/master^{commit} # timeout=10
+Checking out Revision 84440594ff9713a444bb2dd08b4d854e6be39080 (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 84440594ff9713a444bb2dd08b4d854e6be39080
+Commit message: "Added DISABLE_ADMINISTRATIVE_MONITORS flag to Jenkins"
+ > git rev-list --no-walk 84440594ff9713a444bb2dd08b4d854e6be39080 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] container
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Get Student Homework Repo)
+[Pipeline] echo
+*******************************************************
+*** Advanced OpenShift Development Homework Grading ***
+*** GUID:         c740
+*** USER:         richard.kuntze-devoteam.com
+*** Student Repo: *********
+*** CLUSTER:      na311.openshift.opentlc.com
+*** SETUP:        true
+*** DELETE:       true
+*******************************************************
+[Pipeline] echo
+Cloning Student Project Repository
+[Pipeline] git
+ > git rev-parse --is-inside-work-tree # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/rkuntze/advdev_homework.git # timeout=10
+Fetching upstream changes from https://github.com/rkuntze/advdev_homework.git
+ > git --version # timeout=10
+ > git fetch --tags --progress https://github.com/rkuntze/advdev_homework.git +refs/heads/*:refs/remotes/origin/*
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+ > git rev-parse refs/remotes/origin/origin/master^{commit} # timeout=10
+Checking out Revision 0110d8f6a6b32d53edd3220c66cd1e49e515593d (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 0110d8f6a6b32d53edd3220c66cd1e49e515593d
+ > git branch -a -v --no-abbrev # timeout=10
+ > git checkout -b master 0110d8f6a6b32d53edd3220c66cd1e49e515593d
+Commit message: "Reverted setup_jenkins.sh, removed new project from there"
+ > git rev-list --no-walk 430041b3a43f84413b7fafde4fb21a95d1effbae # timeout=10
+First time build. Skipping changelog.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Create Projects)
+[Pipeline] echo
+Creating Projects
+[Pipeline] sh
+[Advanced Development Homework Grading] Running shell script
++ ./bin/setup_projects.sh c740 richard.kuntze-devoteam.com true
+Creating Homework Projects for GUID=c740 and USER=richard.kuntze-devoteam.com
+Now using project "c740-jenkins" on server "https://172.30.0.1:443".
+
+You can add applications to this project with the 'new-app' command. For example, try:
+
+    oc new-app centos/ruby-22-centos7~https://github.com/openshift/ruby-ex.git
+
+to build a new example application in Ruby.
+Now using project "c740-tasks-dev" on server "https://172.30.0.1:443".
+
+You can add applications to this project with the 'new-app' command. For example, try:
+
+    oc new-app centos/ruby-22-centos7~https://github.com/openshift/ruby-ex.git
+
+to build a new example application in Ruby.
+Now using project "c740-tasks-prod" on server "https://172.30.0.1:443".
+
+You can add applications to this project with the 'new-app' command. For example, try:
+
+    oc new-app centos/ruby-22-centos7~https://github.com/openshift/ruby-ex.git
+
+to build a new example application in Ruby.
+role "admin" added: "richard.kuntze-devoteam.com"
+role "admin" added: "richard.kuntze-devoteam.com"
+role "admin" added: "richard.kuntze-devoteam.com"
+namespace "c740-jenkins" annotated
+namespace "c740-tasks-dev" annotated
+namespace "c740-tasks-prod" annotated
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Setup Infrastructure)
+[Pipeline] parallel
+[Pipeline] [Setup Jenkins] { (Branch: Setup Jenkins)
+[Pipeline] [Setup Development Project] { (Branch: Setup Development Project)
+[Pipeline] [Setup Production Project] { (Branch: Setup Production Project)
+[Pipeline] [Setup Jenkins] stage
+[Pipeline] [Setup Jenkins] { (Setup Jenkins)
+[Pipeline] [Setup Development Project] stage
+[Pipeline] [Setup Development Project] { (Setup Development Project)
+[Pipeline] [Setup Production Project] stage
+[Pipeline] [Setup Production Project] { (Setup Production Project)
+[Pipeline] [Setup Jenkins] echo
+[Setup Jenkins] Setting up Jenkins
+[Pipeline] [Setup Jenkins] sh
+[Setup Jenkins] [Advanced Development Homework Grading] Running shell script
+[Setup Jenkins] + ./bin/setup_jenkins.sh c740 https://github.com/rkuntze/advdev_homework.git na311.openshift.opentlc.com
+[Setup Jenkins] Setting up Jenkins in project c740-jenkins from Git Repo https://github.com/rkuntze/advdev_homework.git for Cluster na311.openshift.opentlc.com
+[Setup Jenkins] --> Deploying template "openshift/jenkins-ephemeral" to project c740-tasks-prod
+[Setup Jenkins] 
+[Setup Jenkins]      Jenkins (Ephemeral)
+[Setup Jenkins]      ---------
+[Setup Jenkins]      Jenkins service, without persistent storage.
+[Setup Jenkins]      
+[Setup Jenkins]      WARNING: Any data stored will be lost upon pod destruction. Only use this template for testing.
+[Setup Jenkins] 
+[Setup Jenkins]      A Jenkins service has been created in your project.  Log into Jenkins with your OpenShift account.  The tutorial at https://github.com/openshift/origin/blob/master/examples/jenkins/README.md contains more information about using this template.
+[Setup Jenkins] 
+[Setup Jenkins]      * With parameters:
+[Setup Jenkins]         * Jenkins Service Name=jenkins
+[Setup Jenkins]         * Jenkins JNLP Service Name=jenkins-jnlp
+[Setup Jenkins]         * Enable OAuth in Jenkins=true
+[Setup Jenkins]         * Memory Limit=2Gi
+[Setup Jenkins]         * Jenkins ImageStream Namespace=openshift
+[Setup Jenkins]         * Disable memory intensive administrative monitors=true
+[Setup Jenkins]         * Jenkins ImageStreamTag=jenkins:2
+[Setup Jenkins] 
+[Setup Jenkins] --> Creating resources ...
+[Setup Jenkins]     route "jenkins" created
+[Setup Jenkins]     deploymentconfig "jenkins" created
+[Setup Jenkins]     serviceaccount "jenkins" created
+[Setup Jenkins]     rolebinding "jenkins_edit" created
+[Setup Jenkins]     service "jenkins-jnlp" created
+[Setup Jenkins]     service "jenkins" created
+[Setup Jenkins] --> Success
+[Setup Jenkins]     Access your application via route 'jenkins-c740-tasks-prod.apps.na311.openshift.opentlc.com' 
+[Setup Jenkins]     Run 'oc status' to view your app.
+[Setup Jenkins] --> Found Docker image bac7430 (2 weeks old) from docker.io for "docker.io/openshift/jenkins-agent-maven-35-centos7:v3.11"
+[Setup Jenkins] 
+[Setup Jenkins]     OpenShift Application Platform 
+[Setup Jenkins]     ------------------------------ 
+[Setup Jenkins]     OpenShift is a platform for developing, building, and deploying containerized applications.
+[Setup Jenkins] 
+[Setup Jenkins]     Tags: openshift, core
+[Setup Jenkins] 
+[Setup Jenkins]     * An image stream will be created as "jenkins-agent-maven-35-centos7:v3.11" that will track the source image
+[Setup Jenkins]     * A Docker build using a predefined Dockerfile will be created
+[Setup Jenkins]       * The resulting image will be pushed to image stream "jenkins-agent-appdev:latest"
+[Setup Jenkins]       * Every time "jenkins-agent-maven-35-centos7:v3.11" changes a new build will be triggered
+[Setup Jenkins] 
+[Setup Jenkins] --> Creating resources with label build=jenkins-agent-appdev ...
+[Setup Jenkins]     imagestream "jenkins-agent-maven-35-centos7" created
+[Setup Jenkins]     imagestream "jenkins-agent-appdev" created
+[Setup Jenkins]     buildconfig "jenkins-agent-appdev" created
+[Setup Jenkins] --> Success
+[Setup Jenkins]     Build configuration "jenkins-agent-appdev" created and build triggered.
+[Setup Jenkins]     Run 'oc logs -f bc/jenkins-agent-appdev' to stream the build progress.
+[Setup Jenkins] buildconfig.build.openshift.io "tasks-pipeline" created
+[Setup Jenkins] Checking if Jenkins is Ready...
+[Setup Jenkins] ...no. Sleeping 10 seconds.
+[Pipeline] [Setup Development Project] echo
+[Setup Development Project] Setting up Development Project
+[Pipeline] [Setup Development Project] sh
+[Setup Development Project] [Advanced Development Homework Grading] Running shell script
+[Setup Development Project] + ./bin/setup_dev.sh c740
+[Setup Development Project] Setting up Tasks Development Environment in project c740-tasks-dev
+[Setup Development Project] role "edit" added: "system:serviceaccount:c740-jenkins:jenkins"
+[Setup Development Project] --> Found image c326e30 (16 months old) in image stream "openshift/jboss-eap71-openshift" under tag "1.1" for "openshift/jboss-eap71-openshift:1.1"
+[Setup Development Project] 
+[Setup Development Project]     JBoss EAP 7.1 
+[Setup Development Project]     ------------- 
+[Setup Development Project]     Platform for building and running JavaEE applications on JBoss EAP 7.1
+[Setup Development Project] 
+[Setup Development Project]     Tags: builder, javaee, eap, eap7
+[Setup Development Project] 
+[Setup Development Project]     * A source build using binary input will be created
+[Setup Development Project]       * The resulting image will be pushed to image stream "tasks:latest"
+[Setup Development Project]       * A binary build was created, use 'start-build --from-dir' to trigger a new build
+[Setup Development Project] 
+[Setup Development Project] --> Creating resources with label build=tasks ...
+[Setup Development Project]     imagestream "tasks" created
+[Setup Development Project]     buildconfig "tasks" created
+[Setup Development Project] --> Success
+[Setup Development Project] --> Found tag :0.0-0 in image stream "c740-tasks-dev/tasks" for "c740-tasks-dev/tasks:0.0-0"
+[Setup Development Project] 
+[Setup Development Project]     * This image will be deployed in deployment config "tasks"
+[Setup Development Project] 
+[Setup Development Project] --> Creating resources ...
+[Setup Development Project]     imagestreamtag "tasks:0.0-0" created
+[Setup Development Project]     deploymentconfig "tasks" created
+[Setup Development Project] --> Success
+[Setup Development Project]     Run 'oc status' to view your app.
+[Setup Development Project] deploymentconfig "tasks" updated
+[Setup Development Project] service "tasks" exposed
+[Setup Development Project] route "tasks" exposed
+[Setup Development Project] configmap "tasks-config" created
+[Setup Development Project] deploymentconfig "tasks" updated
+[Setup Development Project] deploymentconfig "tasks" updated
+[Setup Development Project] deploymentconfig "tasks" updated
+[Setup Development Project] deploymentconfig "tasks" updated
+[Setup Development Project] deploymentconfig "tasks" updated
+[Pipeline] [Setup Production Project] echo
+[Setup Production Project] Setting up Production Project
+[Pipeline] [Setup Production Project] sh
+[Setup Production Project] [Advanced Development Homework Grading] Running shell script
+[Setup Production Project] + ./bin/setup_prod.sh c740
+[Setup Production Project] Setting up Tasks Production Environment in project c740-tasks-prod
+[Pipeline] [Setup Development Project] }
+[Pipeline] [Setup Development Project] // stage
+[Pipeline] [Setup Development Project] }
+[Setup Production Project] role "system:image-puller" added: "system:serviceaccounts:c740-tasks-prod"
+[Setup Production Project] role "edit" added: "system:serviceaccount:c740-jenkins:jenkins"
+[Setup Production Project] --> Found tag :0.0 in image stream "c740-tasks-dev/tasks" for "c740-tasks-dev/tasks:0.0"
+[Setup Production Project] 
+[Setup Production Project]     * This image will be deployed in deployment config "tasks-blue"
+[Setup Production Project] 
+[Setup Production Project] --> Creating resources ...
+[Setup Production Project]     imagestreamtag "tasks-blue:0.0" created
+[Setup Production Project]     deploymentconfig "tasks-blue" created
+[Setup Production Project] --> Success
+[Setup Production Project]     Run 'oc status' to view your app.
+[Setup Production Project] deploymentconfig "tasks-blue" updated
+[Setup Production Project] service "tasks-blue" exposed
+[Setup Production Project] configmap "tasks-blue-config" created
+[Setup Production Project] deploymentconfig "tasks-blue" updated
+[Setup Production Project] deploymentconfig "tasks-blue" updated
+[Setup Production Project] deploymentconfig "tasks-blue" updated
+[Setup Production Project] deploymentconfig "tasks-blue" updated
+[Setup Production Project] deploymentconfig "tasks-blue" updated
+[Setup Production Project] --> Found tag :0.0 in image stream "c740-tasks-dev/tasks" for "c740-tasks-dev/tasks:0.0"
+[Setup Production Project] 
+[Setup Production Project]     * This image will be deployed in deployment config "tasks-green"
+[Setup Production Project] 
+[Setup Production Project] --> Creating resources ...
+[Setup Production Project]     imagestreamtag "tasks-green:0.0" created
+[Setup Production Project]     deploymentconfig "tasks-green" created
+[Setup Production Project] --> Success
+[Setup Production Project]     Run 'oc status' to view your app.
+[Setup Production Project] deploymentconfig "tasks-green" updated
+[Setup Production Project] service "tasks-green" exposed
+[Setup Production Project] configmap "tasks-green-config" created
+[Setup Production Project] deploymentconfig "tasks-green" updated
+[Setup Production Project] deploymentconfig "tasks-green" updated
+[Setup Production Project] deploymentconfig "tasks-green" updated
+[Setup Production Project] deploymentconfig "tasks-green" updated
+[Setup Production Project] deploymentconfig "tasks-green" updated
+[Setup Production Project] route "tasks" exposed
+[Pipeline] [Setup Production Project] }
+[Pipeline] [Setup Production Project] // stage
+[Pipeline] [Setup Production Project] }
+[Setup Jenkins] Checking if Jenkins is Ready...
+[Setup Jenkins] ...no. Sleeping 10 seconds.
+[Setup Jenkins] Checking if Jenkins is Ready...
+[Setup Jenkins] ...no. Sleeping 10 seconds.
+[Setup Jenkins] Checking if Jenkins is Ready...
+[Setup Jenkins] ...no. Sleeping 10 seconds.
+[Setup Jenkins] Checking if Jenkins is Ready...
+[Setup Jenkins] ...no. Sleeping 10 seconds.
+[Setup Jenkins] Checking if Jenkins is Ready...
+[Setup Jenkins] ...no. Sleeping 10 seconds.
+[Setup Jenkins] Checking if Jenkins is Ready...
+[Setup Jenkins] ...no. Sleeping 10 seconds.
+[Setup Jenkins] Checking if Jenkins is Ready...
+[Setup Jenkins] ...no. Sleeping 10 seconds.
+[Setup Jenkins] Checking if Jenkins is Ready...
+[Setup Jenkins] ...no. Sleeping 10 seconds.
+[Setup Jenkins] Checking if Jenkins is Ready...
+[Setup Jenkins] ...no. Sleeping 10 seconds.
+[Setup Jenkins] Checking if Jenkins is Ready...
+[Setup Jenkins] ...no. Sleeping 10 seconds.
+[Setup Jenkins] Checking if Jenkins is Ready...
+[Setup Jenkins] ...no. Sleeping 10 seconds.
+[Setup Jenkins] Checking if Jenkins is Ready...
+[Setup Jenkins] ...no. Sleeping 10 seconds.
+[Setup Jenkins] Checking if Jenkins is Ready...
+[Setup Jenkins] ...no. Sleeping 10 seconds.
+[Setup Jenkins] Checking if Jenkins is Ready...
+[Setup Jenkins] ...Yes. Jenkins is ready.
+[Pipeline] [Setup Jenkins] }
+[Pipeline] [Setup Jenkins] // stage
+[Pipeline] [Setup Jenkins] }
+[Pipeline] // parallel
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Reset Projects)
+Stage "Reset Projects" skipped due to when conditional
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (First Pipeline Run (from Green to Blue))
+[Pipeline] echo
+Executing Initial Tasks Pipeline - BLUE deployment
+[Pipeline] script
+[Pipeline] {
+[Pipeline] echo
+
+[Pipeline] _OcContextInit
+[Pipeline] _OcContextInit
+[Pipeline] readFile
+[Pipeline] _OcAction
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test Tasks in Dev)
+Stage "Test Tasks in Dev" skipped due to earlier failure(s)
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test Blue Services in Prod)
+Stage "Test Blue Services in Prod" skipped due to earlier failure(s)
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Second Pipeline Run (from Blue to Green))
+Stage "Second Pipeline Run (from Blue to Green)" skipped due to earlier failure(s)
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test Green Parksmap in Prod)
+Stage "Test Green Parksmap in Prod" skipped due to earlier failure(s)
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Cleanup)
+Stage "Cleanup" skipped due to earlier failure(s)
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // container
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] }
+[Pipeline] // podTemplate
+[Pipeline] End of Pipeline
+ERROR: Error running start-build on at least one item: [buildconfig/tasks-pipeline];
+{reference={}, err=, verb=start-build, cmd=oc --server=https://172.30.0.1:443 --certificate-authority=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt --namespace=c740-jenkins --token=XXXXX start-build buildconfig/tasks-pipeline --wait=true -o=name , out=build/tasks-pipeline-1, status=-1}
+
+Finished: FAILURE
