@@ -82,7 +82,7 @@ podTemplate(
           stage('Code Analysis') {
             echo "Running Code Analysis"
        
-            // TBD: Execute Sonarqube Tests
+            // RIX: Execute Sonarqube Tests
             // internal:            sonarqube.gpte-hw-cicd.svc.cluster.local:9000
             // public route: http://sonarqube-gpte-hw-cicd.apps.na311.openshift.opentlc.com
              sh "${mvnCmd} sonar:sonar -Dsonar.host.url=http://sonarqube-gpte-hw-cicd.apps.na311.openshift.opentlc.com/ -Dsonar.projectName=${JOB_BASE_NAME} -Dsonar.projectVersion=${devTag}"
@@ -95,7 +95,12 @@ podTemplate(
       stage('Publish to Nexus') {
         echo "Publish to Nexus"
 
-        // TBD: Publish to Nexus
+        // RIX: Publish to Nexus
+        // internal: nexus3.gpte-hw-cicd.svc.cluster.local:8081/repository/all-maven-public
+        // public route: http://nexus3-gpte-hw-cicd.apps.na311.openshift.opentlc.com
+        sh "${mvnCmd} deploy -DskipTests=true -DaltDeploymentRepository=nexus::default::http://nexus3.gpte-hw-cicd.svc.cluster.local:8081/repository/releases"
+
+        
       }
 
       // Build the OpenShift Image in OpenShift and tag it.
