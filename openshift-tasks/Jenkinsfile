@@ -1,12 +1,5 @@
 #!groovy
 
-// RIX, my GUID
-def GUID = "c740"
-def JOB_BASE_NAME = "RixTest"
-// Set Development and Production Project Names
-def devProject  = "${GUID}-tasks-dev"
-def prodProject = "${GUID}-tasks-prod"
-
 
 podTemplate(
   label: "skopeo-pod",
@@ -24,13 +17,29 @@ podTemplate(
   ]
 ) {
   node('skopeo-pod') {
+  
+    echo "==========================="
+    echo "Pipeline RixKuntze Starting"
+    echo "==========================="
+    echo "Settting script variables"
+  
     // Define Maven Command to point to the correct
     // settings for our Nexus installation
     def mvnCmd = "mvn -s ../nexus_settings.xml"
 
+    // RIX, my GUID
+    def GUID = "c740"
+    def JOB_BASE_NAME = "RixTest"
+    // Set Development and Production Project Names
+    def devProject  = "${GUID}-tasks-dev"
+    def prodProject = "${GUID}-tasks-prod"
+
 
     // Checkout Source Code.
     stage('Checkout Source') {
+    
+      echo "Checking out from repo"
+      
       checkout scm
     }
 
@@ -42,7 +51,7 @@ podTemplate(
       // Extract version from the pom.xml
       def version = getVersionFromPom("pom.xml")
 
-      // TBD Set the tag for the development image: version + build number
+      // RIX Set the tag for the development image: version + build number
       def devTag  = "${version}-" + currentBuild.number
       // Set the tag for the production image: version
       def prodTag = "${version}"
@@ -52,11 +61,8 @@ podTemplate(
       stage('Build war') {
         echo "Building version ${devTag}"
 
-        // TBD: Execute Maven Build
-        
         // RIX: maven build:
         sh "${mvnCmd} clean package -DskipTests=true"
-
         
       }
 
