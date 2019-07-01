@@ -14,6 +14,7 @@ CLUSTER=$3
 // export GUID="c740"
 // export REPO="https://github.com/rkuntze/advdev_homework.git"
 // export CLUSTER="https://master.na311.openshift.opentlc.com"
+// User: 
 
 
 echo "Setting up Jenkins in project ${GUID}-jenkins from Git Repo ${REPO} for Cluster ${CLUSTER}"
